@@ -30,4 +30,4 @@ DONE:    Find top 5 disks with lowest/highest average IO/s (reads+writes, print 
 
 DONE:    Find disks which are most probably broken, i.e. have non-zero uncorrected errors (print disks and error counter)
 
-There should also be tests that verify if parts of the script are processing data properly.
+DONE:    There should also be tests that verify if parts of the script are processing data properly.
