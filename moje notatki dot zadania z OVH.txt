@@ -1,0 +1,87 @@
+The goal of this task is to prepare statistical analysis of set of data from disks.
+
+Each entry of the data set consists of following fields separated by ;
+character:
+
+    datacenter
+    hostname
+    disk serial
+    disk age (in s)
+    total reads
+    total writes
+    average IO latency from 5 minutes (in ms)
+    total uncorrected read errors
+    total uncorrected write errors
+
+The proper solution (a script in Python) should output following
+information:
+
+DONE:    How many disks are in total and in each DC
+DONE:    Which disk is the youngest/oldest one and what is its age (in days)
+DONE:    What's the average disk age per DC (in days)
+DONE:    How many read/write IO/s disks processes on average
+DONE:    Find top 5 disks with lowest/highest average IO/s (reads+writes, print disks and their avg IO/s)
+DONE:    Find disks which are most probably broken, i.e. have non-zero uncorrected errors (print disks and error counter)
+
+There should also be tests that verify if parts of the script are processing data properly.
+
+
+
+- How many disks are in total and in each DC
+możemy dyski znaleźć po `disk serial` ->total
+możemy znaleźć ile ich jest dla każdego DC (`data_ovhcenter`) po przez df.groupby()
+
+
+- Which disk is the youngest/oldest one and what is its age (in days)
+Możemy znaleźć po przez kolumnę `DiskAge(InS)` funkcje min() i max()
+
+- What's the average disk age per DC (in days)
+metoda df.groupby() a potem spróbujemy df.describe()
+
+
+- How many read/write IO/s disks processes on average
+to już mamy z df.describe()
+
+- Find top 5 disks with lowest/highest average IO/s (reads+writes, print disks and their avg IO/s)
+
+
+- Find disks which are most probably broken, i.e. have non-zero uncorrected errors (print disks and error counter)
+komórka [7] i komórka[8] przerzucone na komórkę [9] i [10]
+
+
+Jak już wszystko przemielisz, to wrzuć to, jeżeli starczy wolnego czasu by dołożyć coś więcej
+
+
+
+Rozważ zrobienie testów z asert i biblioteką Unittest. Jeśli się na to porwiesz wrzuć do markdown:
+
+Referring to the fragment of the assignment where it says "There should also be tests that verify if parts of the script are processing data_ovh properly." - I can see it in two ways (due to fuzzy logic):
+- or I can treat data cleansing as a verification that the data is consistent. And that's it.
+- or I can assume that the data can be updated or it is constantly coming in. In this case, the script that I am writing must verify the correctness of the data on the basis of the pattern data (i.e. those from the file I received: `data.raw`). So, not being sure (the job has fuzzy logic), I decided to generate a second file called: `data_destroyed.raw` in which I will corrupt some of the data, so that I will be able to test if the unit tests work properly.
+
+Below I will load `data_destroyed.raw`. The errors in the file will appear in rows 1-10. ** Only in these raws **.
+
+Error types:
+- no data in the cell
+- cell null
+- instead of `object`, a cell containing` int64`
+- instead of `int64`, the cell containing` object`
+
+
+
+Rozważ zrobienie GUI by można było wybierać plik, który ma być przetworzony przez cały ten skrypt, który pisałeś. Output może być ładnie sformatowanym wywołaniem wszystkich obiektów wyjściowych. Czyli mówiąc krótko, wszystko co wypluło nam jako wyniki, można by wyświetlić jako jeden kompletny tekst w ekranie dla stringów w GUI. Dodatkowo, można by tam wyświetlić czy testy - wyżej opisane - przebiegły poprawnie, jeśli nie, to by wyświetlił monit co poszło nie tak. 
+
+Co do GUI można by dodać guzik do zapisywania tego całego stringu z poprzedniego akapitu.
+
+
+Z innych rzeczy: można rozważyć zapakowanie tego do Docker'a by się w końcu nauczyć w praktyce budowania kontenerów. Możesz zapakować sam skrypt z wirtualnym środowiskiem, bądź GUI, bądź zrobić dwa kontenery, na każde z powyższych. 
+
+
+Na koniec :
+
+
+załaduj to wszystko na github przez konsolę.
+
+
+grand finale https://www.youtube.com/watch?v=wdm9UDKH07E
+
