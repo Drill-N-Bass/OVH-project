@@ -1,0 +1,172 @@
+File Opened ready for further processing: 
+
+C:/Users/b2b/Moje Projekty Python w Jupyter Notebook/0. Other projects/OVH recrutement test - all data/OVH project GUI version/venv/data.raw
+================================================================================
+Test 1 - Check that left and right Index are equal: Test OK
+
+================================================================================
+Test 2 - Checking dtypes of each column in both data frames: Test OK
+================================================================================
+Test 3 - Check for NaN under an entire DataFrame (there shouldn't be any missing values nor NaN's): Test OK
+
+================================================================================
+Test 4 - looking for correct strings in `Data_Ovhcenter` and `hostname` columns:
+ all ok with string consistency of the columns: 'Data_Ovhcenter' and 'Hostname'. Test: OK
+
+================================================================================
+ ____                     _         _      
+|  _ \   __ _  _ __    __| |  __ _ ( ) ___ 
+| |_) | / _` || '_ \  / _` | / _` ||/ / __|
+|  __/ | (_| || | | || (_| || (_| |   \__ \
+|_|     \__,_||_| |_| \__,_| \__,_|   |___/
+                                           
+    _                   _              _          
+   / \    _ __    __ _ | | _   _  ___ (_) ___   _ 
+  / _ \  | '_ \  / _` || || | | |/ __|| |/ __| (_)
+ / ___ \ | | | || (_| || || |_| |\__ \| |\__ \  _ 
+/_/   \_\|_| |_| \__,_||_| \__, ||___/|_||___/ (_)
+                           |___/                  
+
+
+
+What's the shape of DB:
+
+(25000, 9)
+
+================================================================================
+What's the shape of DB:
+
+(25000, 9)
+
+================================================================================
+Panda's `pd.describe()`:
+
+       DiskAge(InS)  ...  TotalUncorrectedWriteErrors
+count  2.500000e+04  ...                  25000.00000
+mean   6.352039e+07  ...                      0.00024
+std    3.036906e+07  ...                      0.01549
+min    1.984100e+04  ...                      0.00000
+25%    4.172478e+07  ...                      0.00000
+50%    6.291107e+07  ...                      0.00000
+75%    8.429411e+07  ...                      0.00000
+max    1.791799e+08  ...                      1.00000
+
+[8 rows x 6 columns]
+
+================================================================================
+Any column has a missing values?
+
+Data_Ovhcenter                        False
+Hostname                              False
+DiskSerial                            False
+DiskAge(InS)                          False
+TotalReads                            False
+TotalWrites                           False
+AverageIOLatencyFrom5Minutes(InMs)    False
+TotalUncorrectedReadErrors            False
+TotalUncorrectedWriteErrors           False
+dtype: bool
+
+================================================================================
+Find disks which are most probably broken, i.e. have non-zero uncorrected errors (str disks and error counter):
+
+False    24994
+True         6
+Name: TotalUncorrectedWriteErrors, dtype: int64
+
+================================================================================
+Disks that have TotalUncorrectedReadErrors:
+
+       DiskSerial  TotalUncorrectedReadErrors
+3612   WFEMWTIP12                           1
+18924  JTGNZHJU24                           1
+
+================================================================================
+Disks that have TotalUncorrectedWriteErrors:
+
+       DiskSerial  TotalUncorrectedWriteErrors
+8198   ERJOGZON98                            1
+13707  WWEKLLAQ07                            1
+19039  PDUACWYQ39                            1
+19319  DDCSTILM19                            1
+23998  CFBDCBWV98                            1
+24990  RUIWCEYE90                            1
+
+================================================================================
+How many disks are in total and in each DC:
+
+Data_Ovhcenter
+dc-tug    4549
+dc-bzy    4983
+dc-gxj    5078
+dc-fqu    5150
+dc-tur    5240
+dtype: int64
+
+================================================================================
+Which disk is the youngest/oldest one and what is its age (in days)
+
+             type  Index  DiskSerial  age (in days)
+0  youngest drive   5899  WHEJNKGW99              0
+1    oldest drive  14418  HBWRKAXG18           2074
+
+The oldest disk from output generated above has:2074 days it's 5.68 years
+
+================================================================================
+What's the average disk age per DC (in days)
+
+Data_Ovhcenter
+dc-fqu    728
+dc-tug    731
+dc-gxj    737
+dc-tur    738
+dc-bzy    741
+Name: DiskAge(InS), dtype: int32
+
+================================================================================
+Find the top 5 disks with the highest average IO/s (reads+ writes, str disks and their avg IO/s):
+
+       TotalReads  TotalWrites  DiskSerial  AverageIOLatencyFrom5Minutes(InMs)
+16382   929496345    322681613  XOPTKGIK82                                  36
+2854   1584947146   1315972763  ZODHQRJF54                                  34
+3126    964657074    521702727  TOFYBLXN26                                  33
+6428   1343700381   1232961027  TUDFFJTQ28                                  33
+12355  2864069884   2086728629  CPRRJUUE55                                  33
+
+================================================================================
+Find the top 5 disks with the lowest average IO/s (reads+ writes, str disks and their avg IO/s):
+
+     TotalReads  TotalWrites  DiskSerial  AverageIOLatencyFrom5Minutes(InMs)
+27   2863043970    570903321  YDULXDKS27                                   1
+125  1296705465    523137947  YUZDPMNK25                                   1
+153  1074585753    605343189  LVIICXKU53                                   1
+199  3125488019   1119451038  LNFGSHDJ99                                   1
+586   576612094    482145238  TINJVQDZ86                                   1
+
+Below a list of potential outliners with:
+AverageIOLatencyFrom5Minutes(InMs) == 0:
+
+1.Size
+378
+2. Instances per each `Data_Ovhcenter`
+
+                DiskSerial
+Data_Ovhcenter            
+dc-bzy                   9
+dc-fqu                   7
+dc-gxj                   7
+dc-tug                   9
+dc-tur                  10
+
+================================================================================
+Additional informations:
+
+        disk avg age(days)  ...  data_ovh_test_case_disks_per_DC
+dc-bzy                 741  ...                             4983
+dc-fqu                 728  ...                             5150
+dc-gxj                 737  ...                             5078
+dc-tug                 731  ...                             4549
+dc-tur                 738  ...                             5240
+
+[5 rows x 5 columns]
+
